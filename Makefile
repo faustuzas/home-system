@@ -5,8 +5,9 @@ run-prometheus:
 	sudo docker build -t prometheus:latest -f docker/Dockerfile.prometheus .
 	sudo docker volume create prometheus-data
 	sudo docker run -d \
-		-p 9090:9090 \
+		--network host \
 		-v prometheus-data:/prometheus \
+		-n prometheus
 		prometheus
 
 run-grafana:
