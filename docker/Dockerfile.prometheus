@@ -1,6 +1,10 @@
 FROM prom/prometheus
 ADD ../configs/prometheus.yml /etc/prometheus/
 
+
+RUN chown prom /prometheus
+USER prom
+
 CMD [ "--config.file=/etc/prometheus/prometheus.yml", \
       "--storage.tsdb.path=/prometheus", \
       "--web.console.libraries=/usr/share/prometheus/console_libraries", \
