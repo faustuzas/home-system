@@ -41,7 +41,7 @@ After=network.target
 [Service]
 ExecStart=$MY_BIN/prometheus \
   --config.file=/etc/prometheus/prometheus.yml \
-  --storage.tsdb.path=~/_data/prometheus/ \
+  --storage.tsdb.path=/home/faustasbutkus/_data/prometheus/ \
   --storage.tsdb.retention.time=4d
 User=faustasbutkus
 Group=faustasbutkus
