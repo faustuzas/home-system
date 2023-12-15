@@ -9,8 +9,7 @@ if [ ! -e $MY_BIN/grafana ]; then
 
   mkdir -p $MY_BIN
 
-  GRAFANA_DIR=grafana-10.2.2.linux-arm64
-  DOWNLOAD_URL=https://dl.grafana.com/oss/release/$GRAFANA_DIR.tar.gz
+  DOWNLOAD_URL=https://dl.grafana.com/oss/release/grafana-10.2.2.linux-arm64.tar.gz
 
   DOWNLOAD_DIR=/tmp/downloads/grafana
   DOWNLOAD_PATH=$DOWNLOAD_DIR/grafana.tar.gz
@@ -24,7 +23,7 @@ if [ ! -e $MY_BIN/grafana ]; then
   tar -xvf $DOWNLOAD_PATH -C $DOWNLOAD_DIR
 
   echo -- Moving binary into $MY_BIN/grafana
-  mv $DOWNLOAD_DIR/$GRAFANA_DIR/grafana $MY_BIN/grafana
+  mv $DOWNLOAD_DIR/grafana-v10.2.2/bin/grafana-server $MY_BIN/grafana
 
   rm -rf $DOWNLOAD_DIR
 else
