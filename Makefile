@@ -7,7 +7,6 @@ run-prometheus:
 	sudo docker run -d \
 		--network host \
 		-v prometheus-data:/prometheus \
-		-n prometheus
 		prometheus
 
 run-grafana:
