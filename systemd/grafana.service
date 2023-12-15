@@ -1,0 +1,15 @@
+[Unit]
+Description=grafana
+After=network.target
+
+[Service]
+ExecStart=sudo docker run --rm \
+          		--network host \
+          		-v grafana-data:/var/lib/grafana \
+          		grafana/grafana-enterprise
+User=faustasbutkus
+Group=faustasbutkus
+Restart=always
+
+[Install]
+WantedBy=default.target

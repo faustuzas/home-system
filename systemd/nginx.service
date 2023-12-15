@@ -1,0 +1,12 @@
+[Unit]
+Description=prometheus
+After=network.target
+
+[Service]
+ExecStart=sudo docker run -it --rm -d --network host nginx
+User=faustasbutkus
+Group=faustasbutkus
+Restart=always
+
+[Install]
+WantedBy=default.target
