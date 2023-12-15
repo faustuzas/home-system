@@ -3,10 +3,10 @@ setup-node-exporter:
 
 run-prometheus:
 	sudo docker build -t prometheus:latest -f docker/Dockerfile.prometheus .
+	docker volume create prometheus-data
 	sudo docker run \
-		--user=faustasbutkus \
 		-p 9090:9090 \
-		-v ~/data/prometheus:/prometheus \
+		-v prometheus-data:/prometheus \
 		prometheus
 
 run-grafana:
