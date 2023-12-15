@@ -41,7 +41,7 @@ After=network.target
 [Service]
 ExecStart=$MY_BIN/prometheus \
   --config.file=/etc/prometheus/prometheus.yml \
-  --storage.tsdb.path /var/lib/prometheus/ \
+  --storage.tsdb.path ~/_data/prometheus/ \
   --storage.tsdb.retention.time=4d
 User=faustasbutkus
 Group=faustasbutkus
@@ -56,6 +56,8 @@ WantedBy=default.target
   sudo systemctl enable prometheus
   sudo systemctl start prometheus
 fi
+
+sudo mkdir -p /_data/prometheus
 
 echo -- Moving latest config to /etc/prometheus/prometheus.yml
 sudo mkdir -p /etc/prometheus
