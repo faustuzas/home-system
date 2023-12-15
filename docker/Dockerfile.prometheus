@@ -1,7 +1,7 @@
 FROM prom/prometheus
 ADD ../configs/prometheus.yml /etc/prometheus/
 
-
+RUN adduser prom
 RUN chown prom /prometheus
 USER prom
 
