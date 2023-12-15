@@ -3,8 +3,8 @@ setup-node-exporter:
 
 run-prometheus:
 	sudo docker build -t prometheus:latest -f docker/Dockerfile.prometheus .
-	docker volume create prometheus-data
-	sudo docker run \
+	sudo docker volume create prometheus-data
+	sudo docker run -d \
 		-p 9090:9090 \
 		-v prometheus-data:/prometheus \
 		prometheus
