@@ -7,5 +7,4 @@ scrape_configs:
       - targets: ['localhost:9100']
 
 storage:
-  wal_enabled: false
   retention_time: 4d

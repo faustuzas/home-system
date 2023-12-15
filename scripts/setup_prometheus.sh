@@ -39,7 +39,10 @@ Description=prometheus
 After=network.target
 
 [Service]
-ExecStart=$MY_BIN/prometheus --config.file=/etc/prometheus/prometheus.yml
+ExecStart=$MY_BIN/prometheus \
+  --config.file=/etc/prometheus/prometheus.yml \
+  --storage.tsdb.path /var/lib/prometheus/ \
+  --storage.tsdb.retention.time=4d
 User=faustasbutkus
 Group=faustasbutkus
 Restart=always
