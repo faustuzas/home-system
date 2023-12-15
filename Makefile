@@ -20,6 +20,4 @@ run-grafana:
 		-v grafana-data:/var/lib/grafana \
 		grafana/grafana-enterprise
 
-after-boot:
-	run-prometheus
-	run-grafana
+after-boot: run-prometheus run-grafana
