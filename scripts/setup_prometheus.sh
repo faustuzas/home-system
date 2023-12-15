@@ -39,7 +39,7 @@ Description=prometheus
 After=network.target
 
 [Service]
-ExecStart=$MY_BIN/prometheus
+ExecStart=$MY_BIN/prometheus --config.file=/etc/prometheus/prometheus.yml
 User=faustasbutkus
 Group=faustasbutkus
 Restart=always
@@ -55,5 +55,5 @@ WantedBy=default.target
 fi
 
 echo -- Moving latest config to /etc/prometheus/prometheus.yml
-mkdir -r /etc/prometheus
-cp configs/prometheus.yml /etc/prometheus/prometheus.yml
+sudo mkdir -p /etc/prometheus
+sudo cp configs/prometheus.yml /etc/prometheus/prometheus.yml
