@@ -10,3 +10,8 @@ run-prometheus:
 		prometheus
 
 run-grafana:
+	sudo docker volume create grafana-data
+	sudo docker run -d \
+		--network host \
+		-v grafana-data:/var/lib/grafana \
+		grafana/grafana-enterprise
