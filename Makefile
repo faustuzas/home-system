@@ -1,3 +1,6 @@
+MAKEFILE_PATH := $(abspath $(lastword $(MAKEFILE_LIST)))
+CURR_DIR := $(dir $(MAKEFILE_PATH))
+
 setup-prometheus:
 	sudo docker build -t prometheus-custom:latest -f docker/Dockerfile.prometheus .
 	sudo docker volume create prometheus-data
@@ -19,7 +22,7 @@ run-grafana:
 		grafana-custom
 
 run-nginx:
-	sudo docker build -t nginx-custom:latest -f docker/Dockerfile.nginx .
+	sudo docker build -t nginx-custom:latest -f $(CURR_DIR)/docker/Dockerfile.nginx .
 	sudo docker run --rm --network host nginx-custom
 
 run-node_exporter:
@@ -52,3 +55,7 @@ systemd-config-$(SERVICE):
 endef
 
 $(foreach SERVICE,$(SERVICES_TO_BOOT),$(eval $(SYSTEMD_CONFIG)))
+
+
+teeest:
+	echo $(CURR_DIR)
