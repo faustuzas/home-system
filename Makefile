@@ -16,7 +16,7 @@ setup-grafana:
 	sudo docker volume create grafana-data
 
 run-grafana:
-	sudo docker run --rm -d \
+	sudo docker run --rm \
 		--network host \
 		-v grafana-data:/var/lib/grafana \
 		grafana-custom
