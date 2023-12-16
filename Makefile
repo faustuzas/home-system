@@ -6,7 +6,7 @@ setup-prometheus:
 	sudo docker volume create prometheus-data
 
 run-prometheus:
-	sudo docker run --rm \
+	sudo docker run --rm --name prometheus \
 		--network host \
 		-v prometheus-data:/prometheus \
 		prometheus-custom
@@ -16,17 +16,17 @@ setup-grafana:
 	sudo docker volume create grafana-data
 
 run-grafana:
-	sudo docker run --rm \
+	sudo docker run --rm --name grafana \
 		--network host \
 		-v grafana-data:/var/lib/grafana \
 		grafana-custom
 
 run-nginx:
 	sudo docker build -t nginx-custom:latest -f $(CURR_DIR)/docker/Dockerfile.nginx $(CURR_DIR)
-	sudo docker run --rm --network host nginx-custom
+	sudo docker run --rm --network host --name nginx nginx-custom
 
 run-node_exporter:
-	sudo docker run \
+	sudo docker run --rm --name node_exporter \
            --network host \
            --pid="host" \
            -v "/:/host:ro,rslave" \
@@ -55,7 +55,3 @@ systemd-config-$(SERVICE):
 endef
 
 $(foreach SERVICE,$(SERVICES_TO_BOOT),$(eval $(SYSTEMD_CONFIG)))
-
-
-teeest:
-	echo $(CURR_DIR)
