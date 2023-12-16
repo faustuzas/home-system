@@ -1,0 +1,12 @@
+[Unit]
+Description=%SERVICE_NAME%
+After=network.target
+
+[Service]
+ExecStart=make -f /home/faustasbutkus/projects/home-system/Makefile run-%SERVICE_NAME%
+User=faustasbutkus
+Group=faustasbutkus
+Restart=always
+
+[Install]
+WantedBy=default.target

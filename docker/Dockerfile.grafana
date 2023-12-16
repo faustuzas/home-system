@@ -1,0 +1,2 @@
+FROM grafana/grafana-enterprise
+COPY ../configs/grafana.ini /etc/grafana/grafana.ini
