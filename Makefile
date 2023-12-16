@@ -22,7 +22,7 @@ run-nginx:
 	sudo docker build -t nginx-custom:latest -f docker/Dockerfile.nginx .
 	sudo docker run --rm --network host nginx-custom
 
-run-node-exporter:
+run-node_exporter:
 	sudo docker run \
            --network host \
            --pid="host" \
@@ -30,4 +30,30 @@ run-node-exporter:
            quay.io/prometheus/node-exporter:latest \
            --path.rootfs=/host
 
-after-boot: run-prometheus run-grafana run-nginx run-node-exporter
+refresh-systemd:
+	sudo systemctl daemon-reload
+	sudo systemctl enable node_exporter
+	sudo systemctl start node_exporter
+
+SERVICES_TO_BOOT = \
+	nginx \
+	prometheus \
+	grafana \
+	node_exporter
+
+SYSTEMD_TEMPLATE = configs/systemd_template.txt
+
+define SYSTEMD_CONFIG
+.PHONY: systemd-config-$(SERVICE)
+systemd-config-$(SERVICE):
+	@echo Configuring $(SERVICE) file
+	@sed 's|%SERVICE_NAME%|$(SERVICE)|g' $(SYSTEMD_TEMPLATE) \
+		| sudo tee /etc/systemd/system/$(SERVICE).service > /dev/null
+
+	@echo Configuring systemd
+	sudo systemctl daemon-reload
+	sudo systemctl enable $(SERVICE)
+	sudo systemctl start $(SERVICE)
+endef
+
+$(foreach SERVICE,$(SERVICES_TO_BOOT),$(eval $(SYSTEMD_CONFIG)))
