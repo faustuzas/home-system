@@ -1,6 +1,3 @@
-setup-node-exporter:
-	bash scripts/setup_node_exporter.sh
-
 setup-prometheus:
 	sudo docker build -t prometheus-custom:latest -f docker/Dockerfile.prometheus .
 	sudo docker volume create prometheus-data
@@ -23,10 +20,14 @@ run-grafana:
 
 run-nginx:
 	sudo docker build -t nginx-custom:latest -f docker/Dockerfile.nginx .
-	sudo docker run -it --rm --network host nginx-custom
+	sudo docker run --rm --network host nginx-custom
 
-after-boot: run-prometheus run-grafana run-nginx
+run-node-exporter:
+	sudo docker run \
+           --network host \
+           --pid="host" \
+           -v "/:/host:ro,rslave" \
+           quay.io/prometheus/node-exporter:latest \
+           --path.rootfs=/host
 
-# Goal:
-	# move node_exporter to docker as well
-	# configure grafana to use /grafana prefix
+after-boot: run-prometheus run-grafana run-nginx run-node-exporter
