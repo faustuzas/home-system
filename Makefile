@@ -22,7 +22,7 @@ run-grafana:
 		grafana-custom
 
 run-nginx:
-	sudo docker build -t nginx-custom:latest -f $(CURR_DIR)/docker/Dockerfile.nginx .
+	sudo docker build -t nginx-custom:latest -f $(CURR_DIR)/docker/Dockerfile.nginx $(CURR_DIR)
 	sudo docker run --rm --network host nginx-custom
 
 run-node_exporter:
