@@ -6,7 +6,7 @@ setup-prometheus:
 	sudo docker volume create prometheus-data
 
 run-prometheus:
-	sudo docker run --rm \
+	sudo docker run --rm -d \
 		--network host \
 		-v prometheus-data:/prometheus \
 		prometheus-custom
@@ -16,14 +16,14 @@ setup-grafana:
 	sudo docker volume create grafana-data
 
 run-grafana:
-	sudo docker run --rm \
+	sudo docker run --rm -d \
 		--network host \
 		-v grafana-data:/var/lib/grafana \
 		grafana-custom
 
 run-nginx:
 	sudo docker build -t nginx-custom:latest -f docker/Dockerfile.nginx .
-	sudo docker run -it --rm -d --network host nginx-custom
+	sudo docker run -it --rm --network host nginx-custom
 
 after-boot: run-prometheus run-grafana run-nginx
 
