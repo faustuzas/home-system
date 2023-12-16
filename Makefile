@@ -3,7 +3,7 @@ setup-prometheus:
 	sudo docker volume create prometheus-data
 
 run-prometheus:
-	sudo docker run --rm -d \
+	sudo docker run --rm \
 		--network host \
 		-v prometheus-data:/prometheus \
 		prometheus-custom
@@ -29,11 +29,6 @@ run-node_exporter:
            -v "/:/host:ro,rslave" \
            quay.io/prometheus/node-exporter:latest \
            --path.rootfs=/host
-
-refresh-systemd:
-	sudo systemctl daemon-reload
-	sudo systemctl enable node_exporter
-	sudo systemctl start node_exporter
 
 SERVICES_TO_BOOT = \
 	nginx \
