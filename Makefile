@@ -34,7 +34,7 @@ run-node_exporter:
            --path.rootfs=/host
 
 run-wedding-web:
-	sudo docker run -rm --name wedding-web \
+	sudo docker run --rm --name wedding-web --name wedding-web \
            --network host \
            faustuzas/wedding-web
 
@@ -47,7 +47,7 @@ SERVICES_TO_BOOT = \
 SYSTEMD_TEMPLATE = configs/systemd_template.txt
 
 define SYSTEMD_CONFIG
-.PHONY: systemd-config-$(SERVICE)
+.PHONY: systemd-$(SERVICE)
 systemd-config-$(SERVICE):
 	@echo Configuring $(SERVICE) file
 	@sed 's|%SERVICE_NAME%|$(SERVICE)|g' $(SYSTEMD_TEMPLATE) \
