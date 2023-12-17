@@ -33,6 +33,11 @@ run-node_exporter:
            quay.io/prometheus/node-exporter:latest \
            --path.rootfs=/host
 
+run-wedding-web:
+	sudo docker run -rm --name wedding-web \
+           --network host \
+           faustuzas/wedding-web
+
 SERVICES_TO_BOOT = \
 	nginx \
 	prometheus \
