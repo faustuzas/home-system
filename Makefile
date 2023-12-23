@@ -33,16 +33,21 @@ run-node_exporter:
            quay.io/prometheus/node-exporter:latest \
            --path.rootfs=/host
 
+setup-wedding-web:
+	sudo docker volume create wedding-web-data
+
 run-wedding-web:
 	sudo docker run --rm --name wedding-web --name wedding-web \
            --network host \
+			-v wedding-web-data:/var/lib/wedding-web \
            faustuzas/wedding-web
 
 SERVICES_TO_BOOT = \
 	nginx \
 	prometheus \
 	grafana \
-	node_exporter
+	node_exporter \
+	wedding-web
 
 SYSTEMD_TEMPLATE = configs/systemd_template.txt
 
