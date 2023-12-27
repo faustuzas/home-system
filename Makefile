@@ -44,8 +44,10 @@ run-mysql:
  	mysql
 
 run-wedding-web:
+	sudo docker image rm -f faustuzas/wedding-web:latest
 	sudo docker run --rm --name wedding-web --name wedding-web \
            --network host \
+           -e WEB_LISTEN=8080 \
            faustuzas/wedding-web
 
 SERVICES_TO_BOOT = \
