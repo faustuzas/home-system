@@ -43,11 +43,12 @@ run-mysql:
  	-e MYSQL_ROOT_PASSWORD=root \
  	mysql
 
+WEDDING_IMAGE_TAG="84fefa2"
 run-wedding-web:
 	sudo docker run --rm --name wedding-web --name wedding-web \
            --network host \
            -e WEB_LISTEN=":8080" \
-           faustuzas/wedding-web
+           faustuzas/wedding-web:$(WEDDING_IMAGE_TAG)
 
 SERVICES_TO_BOOT = \
 	nginx \
