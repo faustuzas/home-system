@@ -33,13 +33,19 @@ run-node_exporter:
            quay.io/prometheus/node-exporter:latest \
            --path.rootfs=/host
 
-setup-wedding-web:
-	sudo docker volume create wedding-web-data
+setup-mysql:
+	sudo docker volume create mysql-data
+
+run-mysql:
+	sudo docker run --rm --name mysql \
+	--network host \
+ 	-v mysql-data:/var/lib/mysql \
+ 	-e MYSQL_ROOT_PASSWORD=root \
+ 	mysql
 
 run-wedding-web:
 	sudo docker run --rm --name wedding-web --name wedding-web \
            --network host \
-			-v wedding-web-data:/var/lib/wedding-web \
            faustuzas/wedding-web
 
 SERVICES_TO_BOOT = \
@@ -47,13 +53,14 @@ SERVICES_TO_BOOT = \
 	prometheus \
 	grafana \
 	node_exporter \
+	mysql \
 	wedding-web
 
 SYSTEMD_TEMPLATE = configs/systemd_template.txt
 
 define SYSTEMD_CONFIG
 .PHONY: systemd-$(SERVICE)
-systemd-config-$(SERVICE):
+systemd-$(SERVICE):
 	@echo Configuring $(SERVICE) file
 	@sed 's|%SERVICE_NAME%|$(SERVICE)|g' $(SYSTEMD_TEMPLATE) \
 		| sudo tee /etc/systemd/system/$(SERVICE).service > /dev/null
