@@ -43,7 +43,7 @@ run-mysql:
  	-e MYSQL_ROOT_PASSWORD=root \
  	mysql
 
-WEDDING_IMAGE_TAG="84fefa2"
+WEDDING_IMAGE_TAG="5f60f90"
 run-wedding-web:
 	sudo docker run --rm --name wedding-web --name wedding-web \
            --network host \
